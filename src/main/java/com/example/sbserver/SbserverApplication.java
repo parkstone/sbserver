@@ -7,5 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SbserverApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SbserverApplication.class, args);
+		System.out.println("test");
+
 	}
 }
