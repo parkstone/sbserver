@@ -5,6 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SbserverApplication {
+	/*
+
+	@SpringBootApplication 부터 설정을 읽어 나가기 시작하기 때문에
+	이 클래스는 항상 프로젝트 최상단에 위치해야 한다.
+
+	*/
 	public static void main(String[] args) {
 		SpringApplication.run(SbserverApplication.class, args);
 	}
