@@ -21,14 +21,6 @@ public class HelloController {
     public HelloResponseDto helloDto(@RequestParam("name") String name, @RequestParam("amount") int amount) {
         return new HelloResponseDto(name, amount);
     }
-
-    /*
-    @RequestMapping(value = "/bodytest", method = RequestMethod.POST)
-    public Response post(@RequestBody Response param){
-        String printText = param.getValue();
-        return new Response(printText == null ? "null" : printText);
-    }
-    */
 }
 
 
