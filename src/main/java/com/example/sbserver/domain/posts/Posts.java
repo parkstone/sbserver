@@ -21,7 +21,7 @@ public class Posts {
 
     */
 
-   @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 500, nullable = false) // varchar(500)
@@ -30,6 +30,7 @@ public class Posts {
     private String content;
     // 속성을 변경하지 않을 경우 기본적인 @Column은 생략 가능
     private String author;
+
     @Builder
     public Posts(String title, String content, String author) {
         this.title = title;
