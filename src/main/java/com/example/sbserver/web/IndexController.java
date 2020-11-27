@@ -1,5 +1,7 @@
 package com.example.sbserver.web;
 
+import com.example.sbserver.config.LoginUser;
+import com.example.sbserver.config.dto.SessionUser;
 import com.example.sbserver.service.posts.PostsService;
 import com.example.sbserver.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -8,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
-/*
+/*  1.
     @GetMapping("/")
     public String index() {
 
@@ -25,12 +29,46 @@ public class IndexController {
         return "index";
     }*/
 
+/*  2.
     private final PostsService postsService;
 
     @GetMapping("/")
     public String index(Model model) {
         // index.mustache 진입 시마다 List<PostsListResponseDto> 를 전달
         model.addAttribute("posts", postsService.findAllDesc());
+        return "index";
+    }*/
+
+/*  3.
+    private final PostsService postsService;
+    private final HttpSession httpSession;
+
+    @GetMapping("/")
+    public String index(Model model) {
+        // index.mustache 진입 시마다 List<PostsListResponseDto> 를 전달
+        model.addAttribute("posts", postsService.findAllDesc());
+
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
+        return "index";
+    }*/
+
+    // 4.
+    private final PostsService postsService;
+    private final HttpSession httpSession;
+
+    @GetMapping("/")
+    public String index(Model model, @LoginUser SessionUser user) {
+        // index.mustache 진입 시마다 List<PostsListResponseDto> 를 전달
+        model.addAttribute("posts", postsService.findAllDesc());
+
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
         return "index";
     }
 
