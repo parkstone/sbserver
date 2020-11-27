@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### 보안을 위해 인증설정파일 업로드 방지 ###
+application-real-oauth.properties
