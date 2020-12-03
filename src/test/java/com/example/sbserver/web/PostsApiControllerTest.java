@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -45,8 +44,9 @@ public class PostsApiControllerTest {
     @LocalServerPort
     private int port;
 
+/*
     @Autowired
-    private TestRestTemplate restTemplate;
+    private TestRestTemplate restTemplate;*/
 
     @Autowired
     private PostsRepository postsRepository;
@@ -72,8 +72,6 @@ public class PostsApiControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void save() throws Exception {
-
-
 
         // given
         String title = "title";
@@ -125,9 +123,11 @@ public class PostsApiControllerTest {
         String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
 
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder().title(expectedTitle).content(expectedContent).build();
+
+        /* spring security 적용으로 인행 하단 내용으로 변경
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
-/*      spring security 적용으로 인행 하단 내용으로 변경
+
         // when
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
 
