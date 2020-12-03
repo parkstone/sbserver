@@ -33,5 +33,3 @@ out/
 
 ### 보안을 위해 인증설정파일 업로드 방지 ###
 #application-oauth.properties
-
-src/main/java/com/example/sbserver/config/auth/
