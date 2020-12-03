@@ -2,5 +2,5 @@ version: 0.0 #codedeploy 버전
 os: linux
 files:
   - source:  / # 이동시킬 대상은 전체파일
-    destination: /home/ec2-user/app/step3/zip/
+    destination: /home/ec2-user/app/step2/zip/
     overwrite: yes
