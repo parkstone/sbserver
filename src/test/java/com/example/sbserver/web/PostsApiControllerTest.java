@@ -53,15 +53,27 @@ public class PostsApiControllerTest {
 
     @Autowired
     private WebApplicationContext context;
+    
+    private MockMvc mvc;
 
+    @Before
+    public void setup() {
+        mvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
+    }
+    
     @After
-    public void teardown() throws Exception  {
+    public void teardown() {
         postsRepository.deleteAll();
     }
 
     @Test
     @WithMockUser(roles = "USER")
     public void save() throws Exception {
+
+
 
         // given
         String title = "title";
@@ -76,6 +88,7 @@ public class PostsApiControllerTest {
 
         String url = "http://localhost:" + port + "/api/v1/posts";
 
+        /* spring security 적용으로 하단 내용으로 변경
         // when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
 
@@ -84,10 +97,22 @@ public class PostsApiControllerTest {
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
+        assertThat(all.get(0).getContent()).isEqualTo(content);*/
+
+        // when
+        mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(requestDto)))
+                .andExpect(status().isOk());
+
+        // then
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void update() throws Exception {
         // given
         Posts savedPosts = postsRepository.save(
@@ -102,12 +127,24 @@ public class PostsApiControllerTest {
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder().title(expectedTitle).content(expectedContent).build();
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
+/*      spring security 적용으로 인행 하단 내용으로 변경
         // when
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+        assertThat(all.get(0).getContent()).isEqualTo(expectedContent);*/
+
+        // when
+        mvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(requestDto)))
+                .andExpect(status().isOk());
+
+        // then
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);

@@ -1,7 +1,7 @@
 package com.example.sbserver.web;
 
-import com.example.sbserver.config.LoginUser;
-import com.example.sbserver.config.dto.SessionUser;
+import com.example.sbserver.config.auth.LoginUser;
+import com.example.sbserver.config.auth.dto.SessionUser;
 import com.example.sbserver.service.posts.PostsService;
 import com.example.sbserver.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;

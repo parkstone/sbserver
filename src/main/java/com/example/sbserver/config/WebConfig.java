@@ -1,6 +1,7 @@
 package com.example.sbserver.config;
 
 
+import com.example.sbserver.config.auth.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
