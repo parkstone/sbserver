@@ -6,19 +6,13 @@ branches:
   only:
     - master
 
-# Travis CI 서버의 HOME. gradle을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시 (같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정)
+# Travis CI 서버의 Home
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
-before_script:
-  - chmod +x gradlew
 
-# master branch에 push 되었을 때 수행하는 명령어
 script: "./gradlew clean build"
-
-before_install:
-  - chmod +x gradlew
 
 # CI 실행 완료 시 메일로 알람
 notifications:
